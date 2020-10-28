@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 
+
 app.use(express.json())
 
 const cors = require('cors')
@@ -12,6 +13,20 @@ const mongoose = require('mongoose')
 const url = `mongodb+srv://week:kissa123@cluster0.zw76f.mongodb.net/weekling?retryWrites=true&w=majority`
 
 const fs = require('fs')
+app.use(express.static('build'))
+
+/** ngrok testaus osio */
+const ngrok = require('ngrok');
+(async function() {
+  const url = await ngrok.connect({addr: 3001})
+  console.log('connected to ngrok ' + url)
+})
+  ().catch((error) => {
+    console.log('error connecting to ngrok ', error.message)
+  })
+
+/** päättyy */
+
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
 .then(result => {
     console.log('connected to MongoDB')
@@ -58,6 +73,6 @@ const objectSchema = new mongoose.Schema({
     })
   })
 
-const port = 3001
+const port = process.env.PORT || 3001
 app.listen(port)
 console.log(`port ${port}`)
