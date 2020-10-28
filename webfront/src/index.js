@@ -6,7 +6,7 @@ const App = () => {
 
   const handleClick = () => {
 
-  axios.post('http://localhost:3001/', {
+  axios.post('/', {
     clickedTimes: 'klikattu'
   })
   .then((response) => {
