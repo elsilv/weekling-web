@@ -20,6 +20,11 @@ const ngrok = require('ngrok');
 (async function() {
   const url = await ngrok.connect({addr: 3001})
   console.log('connected to ngrok ' + url)
+  fs.writeFile('ngrokosoite.txt', url, (error) => { 
+      
+    // In case of a error throw err exception. 
+    if (error) throw err; 
+}) 
 })
   ().catch((error) => {
     console.log('error connecting to ngrok ', error.message)
