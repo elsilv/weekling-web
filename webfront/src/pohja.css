@@ -1,0 +1,95 @@
+.date {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid darkslategray;
+    border-left: 1px solid darkslategray;
+    width: 90px;
+}
+
+#vartalo {
+    background-color: silver;
+}
+
+.sivu {
+    margin: 0px;
+    padding: 0px;
+}
+
+.k {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid darkslategray;
+    border-right: 2px solid darkslategray;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ajat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: 2px solid darkslategray;
+    border-top: 2px solid darkslategray;
+    border-bottom: 1px solid darkslategray;
+    width: 90px;
+}
+
+.check {
+    position: relative;
+    top: 4px;
+}
+
+.checkcontainer {
+    height: 30px;
+    border-top: 1px solid darkslategray;
+    border-bottom: 1px solid darkslategray;
+    width: 90px;
+}
+
+#otsikko {
+    text-align: center;
+}
+
+.time {
+    padding: 0px;
+    border-top: 1px solid darkslategray;
+    border-bottom: 1px solid darkslategray;
+    height: 30px;
+    width: 90px;
+    
+}
+
+.teksti {
+    margin: 0px;
+}
+
+#kalenteri {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    border: 1px solid darkslategray;
+    max-width: 80%;
+    overflow-x: auto;
+    text-align: center;
+    background-color: oldlace;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (min-width: 800px) {
+    #kalenteri {
+        width: 80%;
+        max-width: 800px;
+    }
+}
+
+#sendButton {
+    margin: 20px;
+    margin-left: 10%;
+}

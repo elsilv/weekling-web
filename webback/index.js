@@ -61,7 +61,7 @@ app.post('/', (req, res) => {
   const body = req.body
 
   const object = new Object({
-    date: body.date //new Date() // body.date
+    date: body.date 
   })
 
   object.save().then(savedObject => {
