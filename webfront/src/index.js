@@ -6,14 +6,14 @@ const App = () => {
 
   const handleClick = () => {
 
-  axios.post('/', {
-    clickedTimes: 'klikattu'
-  })
-  .then((response) => {
-    console.log(response.data)
-  }, (error) => {
-    console.log(error)
-  })
+    axios.post('/', {
+      date: new Date()
+    })
+      .then((response) => {
+        console.log(response.data)
+      }, (error) => {
+        console.log(error.response)
+      })
   }
 
   return (
