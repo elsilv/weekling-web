@@ -13,6 +13,7 @@ node_modules/
 # production
 /webback\ngrokosoite.txt
 
+
 # misc
 .DS_Store
 .env.local

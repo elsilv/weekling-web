@@ -11,6 +11,7 @@ node_modules/
 /coverage
 
 # production
+\ngrokosoite.txt
 
 # misc
 .DS_Store

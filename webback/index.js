@@ -73,7 +73,7 @@ app.get('/:id', (req, res) => {
   Object.findById(req.params.id).then(object => {
     res.json(object)
   })
-})
+}) 
 
 const port = process.env.PORT || 3001
 app.listen(port)
