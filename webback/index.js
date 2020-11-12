@@ -17,8 +17,9 @@ app.use(express.static('build'))
 /** ngrok*/
 const ngrok = require('ngrok');
 (async function () {
-  const url = await ngrok.connect({ addr: 3001,
-authtoken: '1k2t4vN3JnQjoMWnCh6JIDWtONS_7XK8qM9Sfr3mN1gBzCECa'
+  const url = await ngrok.connect({
+    addr: 3001,
+    authtoken: '1k2t4vN3JnQjoMWnCh6JIDWtONS_7XK8qM9Sfr3mN1gBzCECa'
   })
   console.log('connected to ngrok ' + url)
   fs.writeFile('ngrokosoite.txt', url, (error) => {
@@ -40,7 +41,9 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
   })
 
 const objectSchema = new mongoose.Schema({
-  date: Date
+  times: [
+    { date: Date }
+  ]
 })
 
 const Object = mongoose.model('Object', objectSchema)
@@ -63,7 +66,9 @@ app.post('/', (req, res) => {
   const body = req.body
 
   const object = new Object({
-    date: body.date 
+    times: [
+      { date: Date.now() }
+    ]
   })
 
   object.save().then(savedObject => {
@@ -71,11 +76,33 @@ app.post('/', (req, res) => {
   })
 })
 
+app.put('/', (req, res) => {
+  const body = req.body
+
+  Object.findOneAndUpdate(
+    { _id: '5fac0de1d7e296cb5b2a3793' }, // to-Do: tähän toimivampi ratkaisu
+    {
+      $push: {
+        times: {
+          "date": Date.now()
+        }
+      }
+    },
+    { upsert: true },
+    function (error, success) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(success)
+      }
+    })
+})
+
 app.get('/:id', (req, res) => {
   Object.findById(req.params.id).then(object => {
     res.json(object)
   })
-}) 
+})
 
 const port = process.env.PORT || 3001
 app.listen(port)

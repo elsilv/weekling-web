@@ -8,13 +8,37 @@ const App = () => {
     const handleClick = () => {
 
         axios.post('/', {
-            date: new Date()
+            times: new Date()
         })
             .then((response) => {
                 console.log(response.data)
             }, (error) => {
                 console.log(error.response)
             })
+    }
+
+    const handlePut = () => {
+
+        axios.put('/', {
+            times: new Date()
+        })
+            .then((response) => {
+                console.log(response.data)
+            }, (error) => {
+                console.log(error.response)
+            })
+    }
+
+    const handleSubmit = () => {
+        var checkedValue = null;
+        var inputElements = document.getElementsByClassName('check');
+        for (var i = 0; inputElements[i]; ++i) {
+            if (inputElements[i].checked) {
+                console.log(inputElements[i].id + '  on valitun ajan sijainti')
+                checkedValue = inputElements[i].value;
+                break;
+            }
+        }
     }
 
     window.onload = function () {
@@ -32,6 +56,8 @@ const App = () => {
                 let check = document.createElement('input');
                 checkCont.appendChild(check);
                 check.className = 'check';
+                var x = `${i}, ${j}`
+                check.id = x //paiva.id // kertoo mikä päivä on (idn)
                 check.type = 'checkbox';
             }
         }
@@ -50,12 +76,12 @@ const App = () => {
                     <aside class="sivu">
                         <ul class="left">
                             <li class="ajat">
-                                <label class="ajatLabel">Times
+                                <label className="ajatLabel">Times
                             <div class="time">
                                         <p class="teksti">8-9</p>
                                     </div>
-                                    <div class="time">
-                                        <p class="teksti">9-10</p>
+                                    <div class="time" id='kissa'>
+                                        <p class="teksti" id='koira'>9-10</p>
                                     </div>
                                     <div class="time">
                                         <p class="teksti">10-11</p>
@@ -120,6 +146,8 @@ const App = () => {
                     <div id="buttonText">Send</div>
                 </button>
                 <button onClick={handleClick}>Klikkaa</button>
+                <button onClick={handleSubmit}>Testaus</button>
+                <button onClick={handlePut}>Put Testaus</button>
             </body>
         </html>
     )
