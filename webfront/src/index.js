@@ -29,16 +29,65 @@ const App = () => {
             })
     }
 
+    var timesArray = [
+        ['08'],
+        ['09'],
+        ['10'],
+        ['11'],
+        ['12'],
+        ['13'],
+        ['14'],
+        ['15'],
+        ['16'],
+        ['17'],
+        ['18'],
+        ['19']
+    ]
+
+    var daysArray = [
+        ['00'],
+        ['01'],
+        ['02'],
+        ['03'],
+        ['04'],
+        ['05'],
+        ['06'],
+        ['07'],
+        ['00']
+    ]
+
     const handleSubmit = () => {
-        var checkedValue = null;
-        var inputElements = document.getElementsByClassName('check');
-        for (var i = 0; inputElements[i]; ++i) {
+        var inputElements = document.getElementsByClassName('check')
+        var suitableTimes = []
+
+        for (var i = 0; i < inputElements.length; ++i) {
             if (inputElements[i].checked) {
-                console.log(inputElements[i].id + '  on valitun ajan sijainti')
-                checkedValue = inputElements[i].value;
-                break;
+                var z = (inputElements[i].id).split(',')
+                var x = z[0]
+                var y = z[1].trimLeft()
+                //var b = (daysArray[x].toString() + timesArray[y].toString())
+
+                // Luodaan tietojen pohjalta uusi Date()
+                var c = new Date()
+                c.setDate(daysArray[x].toString())
+                c.setHours(timesArray[y].toString())
+                c.setMinutes(0)
+                c.setSeconds(0)
+                c.setMonth(0)
+                console.log(c)
+
+                suitableTimes.push(c)
             }
         }
+
+        axios.put('/', {
+            times: suitableTimes
+        })
+            .then((response) => {
+                console.log(response.data)
+            }, (error) => {
+                console.log(error.response)
+            })
     }
 
     window.onload = function () {
@@ -80,8 +129,8 @@ const App = () => {
                             <div class="time">
                                         <p class="teksti">8-9</p>
                                     </div>
-                                    <div class="time" id='kissa'>
-                                        <p class="teksti" id='koira'>9-10</p>
+                                    <div class="time">
+                                        <p class="teksti">9-10</p>
                                     </div>
                                     <div class="time">
                                         <p class="teksti">10-11</p>
