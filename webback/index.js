@@ -16,13 +16,17 @@ app.use(express.static('build'))
 
 /** ngrok*/
 const ngrok = require('ngrok');
-(async function () {
+/*(async function () {
   const url = await ngrok.connect({
     addr: 3001,
     authtoken: '1k2t4vN3JnQjoMWnCh6JIDWtONS_7XK8qM9Sfr3mN1gBzCECa'
   })
   console.log('connected to ngrok ' + url)
-  fs.writeFile('ngrokosoite.txt', url, (error) => {
+  fs.writeFile('ngrokosoite.txt', url, (error) => { */
+    (async function () {
+      const url = await ngrok.connect({ addr: 3001 })
+      console.log('connected to ngrok ' + url)
+      fs.writeFile('ngrokosoite.txt', url, (error) => {    
 
     // In case of a error throw err exception. 
     if (error) throw err;
@@ -42,7 +46,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 
 const objectSchema = new mongoose.Schema({
   times: [
-    { date: Date }
+    { date: [Date] }
   ]
 })
 
@@ -80,16 +84,17 @@ app.put('/', (req, res) => {
   const body = req.body
 
   Object.findOneAndUpdate(
-    { _id: '5fac0de1d7e296cb5b2a3793' }, // to-Do: tähän toimivampi ratkaisu
+    { _id: '5fae926790a583eb7424a753' }, // to-Do: tähän toimivampi ratkaisu
     {
       $push: {
         times: {
-          "date": Date.now()
+          date: body.times  //Date.now() 
         }
       }
     },
     { upsert: true },
     function (error, success) {
+      console.log(body.times)
       if (error) {
         console.log(error)
       } else {
