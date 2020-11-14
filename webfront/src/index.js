@@ -17,18 +17,6 @@ const App = () => {
             })
     }
 
-    const handlePut = () => {
-
-        axios.put('/', {
-            times: new Date()
-        })
-            .then((response) => {
-                console.log(response.data)
-            }, (error) => {
-                console.log(error.response)
-            })
-    }
-
     var timesArray = [
         ['08'],
         ['09'],
@@ -74,6 +62,7 @@ const App = () => {
                 c.setMinutes(0)
                 c.setSeconds(0)
                 c.setMonth(0)
+                c.setMilliseconds(0)
                 console.log(c)
 
                 suitableTimes.push(c)
@@ -191,12 +180,8 @@ const App = () => {
                     </ul>
                 </div>
 
-                <button id="sendButton">
-                    <div id="buttonText">Send</div>
-                </button>
-                <button onClick={handleClick}>Klikkaa</button>
-                <button onClick={handleSubmit}>Testaus</button>
-                <button onClick={handlePut}>Put Testaus</button>
+                <button id="sendButton" onClick={handleSubmit}>Send</button>
+              
             </body>
         </html>
     )
