@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import './pohja.css';
 
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+
 const App = () => {
 
     const handleClick = () => {
@@ -68,6 +71,13 @@ const App = () => {
                 suitableTimes.push(c)
             }
         }
+        if (suitableTimes.length === 0) {
+            const notyf = new Notyf()
+            notyf.error('Please, select some times before submitting')
+        } else {
+            const notyf = new Notyf()
+            notyf.success('Success!')
+        }
 
         axios.put('/', {
             times: suitableTimes
@@ -77,6 +87,7 @@ const App = () => {
             }, (error) => {
                 console.log(error.response)
             })
+           
     }
 
     window.onload = function () {
