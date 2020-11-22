@@ -55,11 +55,13 @@ objectSchema.set('toJSON', {
   }
 })
 
-app.get('/', (req, res) => {
-  Object.find({}).then(objects => {
-    res.json(objects)
-  })
-})
+var y
+
+app.get('/*', (req, res) => {
+  y = req.query.id
+  console.log(req.query.id + ' on tapahtuman id')
+  res.write(y) //res.send(y)
+})  
 
 app.post('/', (req, res) => {
   const body = req.body
@@ -79,7 +81,8 @@ app.put('/', (req, res) => {
   const body = req.body
 
   Object.findOneAndUpdate(
-    { _id: '5fae926790a583eb7424a753' }, // to-Do: tähän toimivampi ratkaisu
+    //{ _id: '5fae926790a583eb7424a753' }, // to-Do: tähän toimivampi ratkaisu    
+    { _id: y },
     {
       $push: {
         times: {
@@ -96,12 +99,6 @@ app.put('/', (req, res) => {
         console.log(success)
       }
     })
-})
-
-app.get('/:id', (req, res) => {
-  Object.findById(req.params.id).then(object => {
-    res.json(object)
-  })
 })
 
 const port = process.env.PORT || 3001

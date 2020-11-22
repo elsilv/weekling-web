@@ -2,23 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import './pohja.css';
+import logo from './weekling_logo_1.png';
 
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
 const App = () => {
-
-    const handleClick = () => {
-
-        axios.post('/', {
-            times: new Date()
-        })
-            .then((response) => {
-                console.log(response.data)
-            }, (error) => {
-                console.log(error.response)
-            })
-    }
 
     var timesArray = [
         ['08'],
@@ -56,7 +45,6 @@ const App = () => {
                 var z = (inputElements[i].id).split(',')
                 var x = z[0]
                 var y = z[1].trimLeft()
-                //var b = (daysArray[x].toString() + timesArray[y].toString())
 
                 // Luodaan tietojen pohjalta uusi Date()
                 var c = new Date()
@@ -71,27 +59,49 @@ const App = () => {
                 suitableTimes.push(c)
             }
         }
+
+        const notyf = new Notyf()
         if (suitableTimes.length === 0) {
-            const notyf = new Notyf()
             notyf.error('Please, select some times before submitting')
         } else {
-            const notyf = new Notyf()
             notyf.success('Success!')
-        }
 
-        axios.put('/', {
-            times: suitableTimes
-        })
-            .then((response) => {
-                console.log(response.data)
-            }, (error) => {
-                console.log(error.response)
+            axios.put('/', {
+                times: suitableTimes
             })
-           
+                .then((response) => {
+                    console.log(response.data)
+                }, (error) => {
+                    console.log(error.response)
+                })
+
+            setTimeout(function () { window.location.reload() }, 3000)
+        }
     }
 
     window.onload = function () {
         createChecks(12);
+    }
+
+    function checkColor(event) {
+        var box = event.target;
+        var cont = box.parentNode;
+        if (box.checked) {
+            cont.style.backgroundColor = ' #c3a41e';
+        }
+        else {
+            cont.style.backgroundColor = '#292929';
+        }
+    }
+
+    function checkColour(checkId, contId, x) {
+        if (document.getElementById(checkId).checked) {
+            console.log("klikattu");
+            document.getElementById(contId).style.backgroundColor = '#000000';
+        }
+        else {
+            document.getElementById(contId).style.backgroundColor = "FFFFFF"
+        }
     }
 
     function createChecks(maara) {
@@ -100,14 +110,17 @@ const App = () => {
             for (let j = 0; j < maara; j++) {
                 let checkCont = document.createElement("div")
                 checkCont.className = "checkcontainer";
+                checkCont.id = 'checkCont' + i + j;
+                checkCont.style.backgroundColor = '#292929';
                 paiva.appendChild(checkCont);
 
                 let check = document.createElement('input');
                 checkCont.appendChild(check);
                 check.className = 'check';
                 var x = `${i}, ${j}`
-                check.id = x //paiva.id // kertoo mikä päivä on (idn)
+                check.id = x
                 check.type = 'checkbox';
+                check.addEventListener('change', checkColor, false)
             }
         }
     }
@@ -117,11 +130,17 @@ const App = () => {
             <head>
                 <meta charset="UTF-8" />
                 <link type="text/css" href="pohja.css" />
-                <script src="pohja.js"> </script>
+                <script src="index.js"> </script>
             </head>
             <body id="vartalo">
-                <h1 id="otsikko">Weekling-bot</h1>
-                <div id="kalenteri">
+                <div id="headerContainer">
+                    <a href="/"><img src= {`${logo}`} alt="logo" /></a>
+                </div>
+                <div id="header"></div>
+                <div id="instructions">
+                    <p id="instructions-text">Please select available times and press Send</p>
+                </div>
+                <div id="kalenteri"> 
                     <aside class="sivu">
                         <ul class="left">
                             <li class="ajat">
@@ -190,9 +209,7 @@ const App = () => {
                         </li>
                     </ul>
                 </div>
-
                 <button id="sendButton" onClick={handleSubmit}>Send</button>
-              
             </body>
         </html>
     )

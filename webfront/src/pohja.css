@@ -1,18 +1,100 @@
-.date {
-    display: flex;
-    flex-direction: row;
-    border-top: 1px solid darkslategray;
-    border-left: 1px solid darkslategray;
-    width: 90px;
+html, body {
+    margin: 0px;
+    padding: 0px;
 }
 
 #vartalo {
-    background-color: silver;
+    background-color: #201d1d;
 }
+
+#headerContainer {
+    background-color: #101010;
+    padding: 0px;
+    margin: 0px;
+}
+
+#headerContainer img{
+    width: 300px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.pageHeader img{
+    float: left;
+    width: 200px;
+    background-size: contain;
+}
+
+
+#otsikko {
+    text-align: center;
+    color: #dfd8b9;
+}
+
+#instructions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 25px;
+    margin-top: 25px;
+    background-color: #c3a41e;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#instructions-text {
+    color: #dfd8b9;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+
+#kalenteri {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    border: 2px solid #d6ca75;
+    box-shadow: 0 0 10px #d6ca75;
+    max-width: 80%;
+    overflow-x: auto;
+    text-align: center;
+    background-color: #000000;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #dfd8b9;
+    padding-right: 20px;
+}
+
+::-webkit-scrollbar-track {   
+    background:  #101010;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c3a41e;
+}
+
 
 .sivu {
     margin: 0px;
     padding: 0px;
+}
+
+.ajat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-left: 2px solid black;
+    border-top: 4px solid black;
+    border-bottom: 4px solid black;
+    width: 80px;
+    
+    background-color: #292929;
 }
 
 .k {
@@ -21,24 +103,26 @@
     align-items: stretch;
     margin: 0px;
     padding: 0px;
-    border: 1px solid darkslategray;
-    border-right: 2px solid darkslategray;
+    border: 4px solid black;
+    border-right: 4px solid black;
+    border-top: 3px solid black;
+}
+
+.date {
+    display: flex;
+    flex-direction: row;
+    border-top: 4px solid black;
+    border-left: 4px solid black;
+    border-bottom: 4px solid black;
+    width: 90px;
+    background-color: #292929;
 }
 
 .group {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.ajat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-left: 2px solid darkslategray;
-    border-top: 2px solid darkslategray;
-    border-bottom: 1px solid darkslategray;
-    width: 90px;
+    border-bottom: 4px solid black;
 }
 
 .check {
@@ -48,38 +132,34 @@
 
 .checkcontainer {
     height: 30px;
-    border-top: 1px solid darkslategray;
-    border-bottom: 1px solid darkslategray;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
     width: 90px;
 }
 
-#otsikko {
-    text-align: center;
+.ajatLabel {
+    border-bottom: 4px solid black
 }
 
 .time {
     padding: 0px;
-    border-top: 1px solid darkslategray;
-    border-bottom: 1px solid darkslategray;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
     height: 30px;
     width: 90px;
-    
 }
 
 .teksti {
     margin: 0px;
+    text-align: center;
+    position: relative;
+    top: 6px;
 }
 
-#kalenteri {
-    display: flex;
-    align-items: center;
-    margin: auto;
-    border: 1px solid darkslategray;
-    max-width: 80%;
-    overflow-x: auto;
-    text-align: center;
-    background-color: oldlace;
-    font-family: Arial, Helvetica, sans-serif;
+#sendButton {
+    margin: 20px;
+    margin-left: 10%;
+    
 }
 
 @media screen and (min-width: 800px) {
@@ -87,9 +167,13 @@
         width: 80%;
         max-width: 800px;
     }
+
+
 }
 
-#sendButton {
-    margin: 20px;
-    margin-left: 10%;
+@media screen and (min-width: 1000px) {
+    #sendButton {
+        margin: 20px;
+        margin-left: calc(50% - 400px);
+    }
 }
