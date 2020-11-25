@@ -57,9 +57,9 @@ objectSchema.set('toJSON', {
 })
 
 app.put('/', (req, res) => {
-  console.log("event: " + req.body.eventName);
+  console.log("id: " + req.body.id);
   Object.findOneAndUpdate( 
-    { event_name: req.body.eventName},
+    { _id: req.body.id},
     {
       $push: {
         times: {

@@ -42,8 +42,8 @@ const App = () => {
 
         const search = window.location.search;
         const params = new URLSearchParams(search);
-        const event = params.get('event');
-        console.log('event on ', event)
+        const id = params.get('id');
+        console.log('id on ', id)
 
         for (var i = 0; i < inputElements.length; ++i) {
             if (inputElements[i].checked) {
@@ -73,7 +73,7 @@ const App = () => {
 
             axios.put('/', {
                 times: suitableTimes,
-                eventName: event
+                id: id
             })
                 .then((response) => {
                     console.log(response.data)
