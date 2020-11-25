@@ -22,7 +22,7 @@ const ngrok = require('ngrok');
     authtoken: '1k2t4vN3JnQjoMWnCh6JIDWtONS_7XK8qM9Sfr3mN1gBzCECa'
   })
   console.log('connected to ngrok ' + url)
-  fs.writeFile('ngrokosoite.txt', url, (error) => {  
+  fs.writeFile('ngrokosoite.txt', url, (error) => {
     // In case of a error throw err exception. 
     if (error) throw err;
   })
@@ -40,6 +40,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
   })
 
 const objectSchema = new mongoose.Schema({
+  event_name: String,
   times: [
     { date: [Date] }
   ]
@@ -55,48 +56,24 @@ objectSchema.set('toJSON', {
   }
 })
 
-var y
-
-app.get('/*', (req, res) => {
-  y = req.query.id
-  console.log(req.query.id + ' on tapahtuman id')
-  res.write(y) //res.send(y)
-})  
-
-app.post('/', (req, res) => {
-  const body = req.body
-
-  const object = new Object({
-    times: [
-      { date: Date.now() }
-    ]
-  })
-
-  object.save().then(savedObject => {
-    res.json(savedObject)
-  })
-})
-
 app.put('/', (req, res) => {
-  const body = req.body
-
-  Object.findOneAndUpdate(
-    //{ _id: '5fae926790a583eb7424a753' }, // to-Do: tähän toimivampi ratkaisu    
-    { _id: y },
+  console.log("event: " + req.body.eventName);
+  Object.findOneAndUpdate( 
+    { event_name: req.body.eventName},
     {
       $push: {
         times: {
-          date: body.times  //Date.now() 
+          date: req.body.times
         }
       }
     },
     { upsert: true },
     function (error, success) {
-      console.log(body.times)
-      if (error) {
-        console.log(error)
+      console.log(req.body.times)
+      if(error) {
+        console.log('error adding to new time, probably there is something wrong with id', error.message)
       } else {
-        console.log(success)
+        console.log('New time added!' + success)
       }
     })
 })

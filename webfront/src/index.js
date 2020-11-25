@@ -40,6 +40,11 @@ const App = () => {
         var inputElements = document.getElementsByClassName('check')
         var suitableTimes = []
 
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const event = params.get('event');
+        console.log('event on ', event)
+
         for (var i = 0; i < inputElements.length; ++i) {
             if (inputElements[i].checked) {
                 var z = (inputElements[i].id).split(',')
@@ -67,7 +72,8 @@ const App = () => {
             notyf.success('Success!')
 
             axios.put('/', {
-                times: suitableTimes
+                times: suitableTimes,
+                eventName: event
             })
                 .then((response) => {
                     console.log(response.data)
