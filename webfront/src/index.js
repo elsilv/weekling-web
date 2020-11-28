@@ -47,7 +47,9 @@ const App = () => {
         const search = window.location.search;
         const params = new URLSearchParams(search)
         const id = params.get('id')
+        const eventName = params.get('event')
         console.log('id on ', id)
+        console.log('event on ', eventName)
 
         for (var i = 0; i < inputElements.length; ++i) {
             if (inputElements[i].checked) {
@@ -75,9 +77,7 @@ const App = () => {
             notyf.error('Please, select some times before submitting')
         }
 
-        if (id.length != 24) {
-            notyf.error('Id is wrong')
-        }
+        if (id.length != 24) { notyf.error('Id is wrong') }
 
         else {
             notyf.success('Success!')
@@ -141,6 +141,10 @@ const App = () => {
         }
     }
 
+    const search = window.location.search;
+    const params = new URLSearchParams(search)
+    const eventName = params.get('event')
+
     return (
         <html>
             <head>
@@ -151,6 +155,7 @@ const App = () => {
             <body id="vartalo">
                 <div id="headerContainer">
                     <a href="/"><img src={`${logo}`} alt="logo" /></a>
+                    <div id="otsikko"> <h3>{`${eventName}`}</h3> </div>
                 </div>
                 <div id="header"></div>
                 <div id="instructions">
