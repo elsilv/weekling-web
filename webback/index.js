@@ -1,20 +1,14 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
+const mongoose = require('mongoose')
+const fs = require('fs')
 
 app.use(express.json())
-
-const cors = require('cors')
 app.use(cors())
-
-const mongoose = require('mongoose')
-
-// to-Do: vaihda ja piilota salasana
-const url = `mongodb+srv://week:kissa123@cluster0.zw76f.mongodb.net/weekling?retryWrites=true&w=majority`
-
-const fs = require('fs')
 app.use(express.static('build'))
 
-/** ngrok*/
+/** Ngrok yhdistäminen */
 const ngrok = require('ngrok');
 (async function () {
   const url = await ngrok.connect({
@@ -23,14 +17,15 @@ const ngrok = require('ngrok');
   })
   console.log('connected to ngrok ' + url)
   fs.writeFile('ngrokosoite.txt', url, (error) => {
-    // In case of a error throw err exception. 
-    if (error) throw err;
+    if (error) throw err
   })
 })
   ().catch((error) => {
     console.log('error connecting to ngrok ', error.message)
   })
 
+/** MongoDB yhdistäminen */
+const url = `mongodb+srv://week:kissa123@cluster0.zw76f.mongodb.net/weekling?retryWrites=true&w=majority`
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
   .then(result => {
     console.log('connected to MongoDB')
@@ -56,10 +51,11 @@ objectSchema.set('toJSON', {
   }
 })
 
+/** Lisätään ajat haluttuun tapahtumaan id:n perusteella */
 app.put('/', (req, res) => {
   console.log("id: " + req.body.id);
-  Object.findOneAndUpdate( 
-    { _id: req.body.id},
+  Object.findOneAndUpdate(
+    { _id: req.body.id },
     {
       $push: {
         times: {
@@ -70,7 +66,7 @@ app.put('/', (req, res) => {
     { upsert: true },
     function (error, success) {
       console.log(req.body.times)
-      if(error) {
+      if (error) {
         console.log('error adding to new time, probably there is something wrong with id', error.message)
       } else {
         console.log('New time added!' + success)

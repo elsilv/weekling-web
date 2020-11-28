@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
+
 import './pohja.css';
 import logo from './weekling_logo_1.png';
 
@@ -9,6 +10,7 @@ import 'notyf/notyf.min.css';
 
 const App = () => {
 
+    // Taulukko mahdollisista kellonajoista
     var timesArray = [
         ['08'],
         ['09'],
@@ -24,6 +26,7 @@ const App = () => {
         ['19']
     ]
 
+    // Taulukko päivistä, maanantai on 01, tiistai 02, jne.
     var daysArray = [
         ['00'],
         ['01'],
@@ -36,13 +39,14 @@ const App = () => {
         ['00']
     ]
 
+    // Uusien aikojen lisääminen
     const handleSubmit = () => {
         var inputElements = document.getElementsByClassName('check')
         var suitableTimes = []
 
         const search = window.location.search;
-        const params = new URLSearchParams(search);
-        const id = params.get('id');
+        const params = new URLSearchParams(search)
+        const id = params.get('id')
         console.log('id on ', id)
 
         for (var i = 0; i < inputElements.length; ++i) {
@@ -65,12 +69,18 @@ const App = () => {
             }
         }
 
+        // Notifikaatiot lisäyksen onnistumisesta ja epäonnistumisesta
         const notyf = new Notyf()
         if (suitableTimes.length === 0) {
             notyf.error('Please, select some times before submitting')
-        } else {
-            notyf.success('Success!')
+        }
 
+        if (id.length != 24) {
+            notyf.error('Id is wrong')
+        }
+
+        else {
+            notyf.success('Success!')
             axios.put('/', {
                 times: suitableTimes,
                 id: id
@@ -86,24 +96,24 @@ const App = () => {
     }
 
     window.onload = function () {
-        createChecks(12);
+        createChecks(12)
     }
 
     function checkColor(event) {
-        var box = event.target;
-        var cont = box.parentNode;
+        var box = event.target
+        var cont = box.parentNode
         if (box.checked) {
-            cont.style.backgroundColor = ' #c3a41e';
+            cont.style.backgroundColor = ' #c3a41e'
         }
         else {
-            cont.style.backgroundColor = '#292929';
+            cont.style.backgroundColor = '#292929'
         }
     }
 
     function checkColour(checkId, contId, x) {
         if (document.getElementById(checkId).checked) {
-            console.log("klikattu");
-            document.getElementById(contId).style.backgroundColor = '#000000';
+            console.log("klikattu")
+            document.getElementById(contId).style.backgroundColor = '#000000'
         }
         else {
             document.getElementById(contId).style.backgroundColor = "FFFFFF"
@@ -115,17 +125,17 @@ const App = () => {
             var paiva = document.getElementById(i)
             for (let j = 0; j < maara; j++) {
                 let checkCont = document.createElement("div")
-                checkCont.className = "checkcontainer";
-                checkCont.id = 'checkCont' + i + j;
-                checkCont.style.backgroundColor = '#292929';
-                paiva.appendChild(checkCont);
+                checkCont.className = "checkcontainer"
+                checkCont.id = 'checkCont' + i + j
+                checkCont.style.backgroundColor = '#292929'
+                paiva.appendChild(checkCont)
 
-                let check = document.createElement('input');
-                checkCont.appendChild(check);
-                check.className = 'check';
-                var x = `${i}, ${j}`
+                let check = document.createElement('input')
+                checkCont.appendChild(check)
+                check.className = 'check'
+                var x = `${i}, ${j}` // määritellään id
                 check.id = x
-                check.type = 'checkbox';
+                check.type = 'checkbox'
                 check.addEventListener('change', checkColor, false)
             }
         }
@@ -140,13 +150,13 @@ const App = () => {
             </head>
             <body id="vartalo">
                 <div id="headerContainer">
-                    <a href="/"><img src= {`${logo}`} alt="logo" /></a>
+                    <a href="/"><img src={`${logo}`} alt="logo" /></a>
                 </div>
                 <div id="header"></div>
                 <div id="instructions">
                     <p id="instructions-text">Please select available times and press Send</p>
                 </div>
-                <div id="kalenteri"> 
+                <div id="kalenteri">
                     <aside class="sivu">
                         <ul class="left">
                             <li class="ajat">
