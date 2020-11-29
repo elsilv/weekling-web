@@ -1,10 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
-
 import './pohja.css';
 import logo from './weekling_logo_1.png';
-
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
 
@@ -47,9 +45,6 @@ const App = () => {
         const search = window.location.search;
         const params = new URLSearchParams(search)
         const id = params.get('id')
-        const eventName = params.get('event')
-        console.log('id on ', id)
-        console.log('event on ', eventName)
 
         for (var i = 0; i < inputElements.length; ++i) {
             if (inputElements[i].checked) {
@@ -73,11 +68,8 @@ const App = () => {
 
         // Notifikaatiot lisäyksen onnistumisesta ja epäonnistumisesta
         const notyf = new Notyf()
-        if (suitableTimes.length === 0) {
-            notyf.error('Please, select some times before submitting')
-        }
-
-        if (id.length != 24) { notyf.error('Id is wrong') }
+        if (suitableTimes.length === 0)    { notyf.error('Please, select some times before submitting') }
+        if (id == null || id.length != 24) { notyf.error('Id is wrong') }
 
         else {
             notyf.success('Success!')
@@ -103,7 +95,7 @@ const App = () => {
         var box = event.target
         var cont = box.parentNode
         if (box.checked) {
-            cont.style.backgroundColor = ' #c3a41e'
+            cont.style.backgroundColor = '#c3a41e'
         }
         else {
             cont.style.backgroundColor = '#292929'
@@ -121,8 +113,15 @@ const App = () => {
     }
 
     function createChecks(maara) {
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i <= 7; i++) {
             var paiva = document.getElementById(i)
+            var dayNow = new Date(Date.now()).getDay().toString()
+            if (dayNow == 0) { document.getElementById(7).style.backgroundColor = '#c3a41e'}
+            if (dayNow == i) { 
+                document.getElementById(i).style.backgroundColor = '#c3a41e'
+                console.log('KISSA' + i) 
+            }
+
             for (let j = 0; j < maara; j++) {
                 let checkCont = document.createElement("div")
                 checkCont.className = "checkcontainer"
@@ -144,6 +143,8 @@ const App = () => {
     const search = window.location.search;
     const params = new URLSearchParams(search)
     const eventName = params.get('event')
+    var hours = params.get('hours') 
+    if(hours == undefined || null) hours = 12
 
     return (
         <html>
