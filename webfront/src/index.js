@@ -68,9 +68,9 @@ const App = () => {
 
         // Notifikaatiot lisäyksen onnistumisesta ja epäonnistumisesta
         const notyf = new Notyf()
-        if (suitableTimes.length === 0)    { notyf.error('Please, select some times before submitting') }
         if (id == null || id.length != 24) { notyf.error('Id is wrong') }
-
+        if (suitableTimes.length === 0)    { notyf.error('Please, select some times before submitting') }
+        
         else {
             notyf.success('Success!')
             axios.put('/', {
@@ -119,7 +119,6 @@ const App = () => {
             if (dayNow == 0) { document.getElementById(7).style.backgroundColor = '#c3a41e'}
             if (dayNow == i) { 
                 document.getElementById(i).style.backgroundColor = '#c3a41e'
-                console.log('KISSA' + i) 
             }
 
             for (let j = 0; j < maara; j++) {
