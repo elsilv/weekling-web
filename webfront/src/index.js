@@ -205,16 +205,14 @@ const App = () => {
                 </div>
 
                 <div id="buttons">
-                    <button onClick={ () => setStatus(!status) }>{ status ? 'Add available times' : 'Add non-available times' }</button>
-                    <div id="selectButtonDiv">
-                        <button id="selectButton" onClick={selectAll}>
+                    <button class="button2" onClick={ () => setStatus(!status) }>{ status ? 'Add available times' : 'Add non-available times' }</button>
+                        <button class="button2" id="selectButton" onClick={selectAll}>
                             <div id="selectButtonText">Select all</div>
                         </button>
 
-                        <button id="unselectButton" onClick={unselectAll}>
+                        <button class="button2" id="unselectButton" onClick={unselectAll}>
                             <div id="unselectButtonText">Unselect all</div>
                         </button>
-                    </div>
                 </div>
 
                 <div id="kalenteri">
