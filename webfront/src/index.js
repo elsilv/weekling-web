@@ -72,7 +72,7 @@ const App = () => {
         }
 
         if (status == false) { makeDate(false) }
-        else { makeDate(true)  }
+        else { makeDate(true) }
 
         // Notifikaatiot lisäyksen onnistumisesta ja epäonnistumisesta
         const notyf = new Notyf()
@@ -191,25 +191,21 @@ const App = () => {
             <head>
                 <meta charset="UTF-8" />
                 <link type="text/css" href="pohja.css" />
-                <script src="index.js"> </script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
             </head>
             <body id="vartalo">
                 <div id="headerContainer">
                     <img src={`${logo}`} alt="logo" />
-                    <div id="otsikko"> <h3>{`${eventName}`}</h3> </div>
+                    <div id="otsikko"> <h3>{ `${eventName}` }</h3> </div>
                 </div>
                 <div id="header"></div>
                 <div id="instructions">
-                    <p id="instructions-text">Please select available times and press Send.
-                                              You can choose an entire day by clicking on the name, or change the input mode with 
+                    <p id="instructions-text">Please select available times and press Send.<br></br>
+                    You can choose an entire day by clicking on the name, or change the input mode with
                                               the dropdown box above the calendar.</p>
                 </div>
 
                 <div id="buttons">
-                    <button onClick={() => setStatus(!status)}>{status ? 'Add available times' : 'Add non-available times'}</button>
-
+                    <button onClick={ () => setStatus(!status) }>{ status ? 'Add available times' : 'Add non-available times' }</button>
                     <div id="selectButtonDiv">
                         <button id="selectButton" onClick={selectAll}>
                             <div id="selectButtonText">Select all</div>
